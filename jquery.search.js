@@ -66,24 +66,57 @@
         this.settings = $.extend(true, {}, $.searcher.defaults, options);
         this.currentContainer = container;
         this.currentPosition = this.settings.position;
-        this.settings.onCreate();
+        this.settings.onCreate.apply(this);
     };
 
     $.extend($.searcher, {
 
         defaults : {
+            //print debug information into console
             "debug" : false,
+
+            //in case of false searcher after creating call nextConcurrence method
+            //if you would like to do some other stuff, please use onCreate callback
             "createOnly" : true,
-            "searchSelector" : "", //if it is set,then search result will be always always updated in context container
+
+            //if it is set,then search result will be always always updated in context container
+            "searchSelector" : "",
+
+            //start postion
+            //NOTE:
+            //1. position starts with 0.
+            //2. if you call nextConcurrence method, it will be increased before finding element
             "position" : -1,
-            "searchOrder" : "down", //"up" -> true, "down" -> false
-            "searchType" : "highlight",//"highlight", "highlightSelected", "replace"
+
+            //search of order
+            // can be "up" (or true), "down" (or false)
+            "searchOrder" : "down",
+
+            //type of finding behaviour
+            // can be:
+            // 1. highlight - highlight whole element
+            // 2. highlightSelected - highlight selected text of element
+            // 3. replace - replace
+            "searchType" : "highlight",
+
+            //text to search. can be set via setText method
             "text" : null,
+
+            //text to replace (when "searchType" is "replace" only
             "replaceBy" : "",
-            "scrollTo" : false,//might not work in case of selector different than needed, use afterSearch functionality
-            onCreate : function(){},
-            beforeSearch : function(){},
-            afterSearch : function(textEl){}
+
+            //if this parameter is true, page automatically scroll to selected element
+            //NOTE: it might not work in case if selector is different than needed, use afterSearch callback in that case
+            "scrollTo" : false,
+
+            //callback called after creating of "searcher" object
+            onCreate : function() {},
+
+            //calback called before next search
+            beforeSearch : function() {},
+
+            //callback called after next search
+            afterSearch : function(textEl) {}
         },
 
         prototype : {
@@ -107,11 +140,22 @@
             },
 
             setPosition : function(position){
+                if (position >= this.getConcurrencesNumber()){
+                    position = -1;
+                }
                 this.settings.position = position;
+            },
+
+            getSearchOrder : function(){
+                return this.settings.searchOrder === "up" || this.settings.searchOrder === true  ? "up" : "down";
             },
 
             setSearchOrder : function(searchOrder){
                 this.settings.position = searchOrder === "up" ? "up" : "down";
+            },
+
+            getSearchType : function(){
+                return this.settings.searchType;
             },
 
             setSearchType : function(searchType){
@@ -158,7 +202,7 @@
             },
 
             findConcurrence : function(position, searchType){
-                this.settings.beforeSearch();
+                this.settings.beforeSearch.apply(this);
 
                 if (!this.settings.text){
                     this._debug("Text shouldn't be empty");
@@ -191,7 +235,7 @@
                     this.currentContainer.scrollTo(textEl.parent());
                 }
 
-                this.settings.afterSearch(textEl);
+                this.settings.afterSearch.apply(this, $.makeArray(textEl));
             },
 
             _filter : function(escapedText){

@@ -81,13 +81,13 @@
             $("#prev").click(function(e) {
                 e.preventDefault();
 
-                find(false);
+                find(true);
             });
 
             $("#next").click(function(e) {
                 e.preventDefault();
 
-                find(true);
+                find(false);
             });
 
             $("#append").click(function(e) {
@@ -108,7 +108,7 @@
 <div id="searchDemo">
     <p class="back"><a href="https://github.com/nmartynenko/jquery-search-plugin"> &lt;&lt; Back to project page</a></p>
 
-    <p class="message">To search content, please fill.</p>
+    <p class="message">To search over content, please fill input field and click "Previous" or "Next".</p>
 
     <noscript>
         <p>Please enable JavaScript to use search plugin.</p>
