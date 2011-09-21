@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <style type="text/css">
+
+        body{
+            font-family: Arial, Helvetica, Verdana, sans-serif;
+            font-size: 12px;
+        }
+
+        #searchDemo{
+            width: 600px;
+        }
+
+        #searchContent{
+            border: 2px solid #CCCCCC;
+            border-radius: 0 0 0 0;
+            height: 200px;
+            margin: 0 auto;
+            overflow: auto;
+            padding: 5px;
+            width: 584px;
+        }
+
+        .back a{
+            color: #000000;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .message {
+            font-size: 13px;
+            font-style: italic;
+        }
+
+        label{
+            clear: both;
+            float: left;
+            font-size: 13px;
+            width: 100px;
+        }
+
+        .searchForm{
+            background: none repeat scroll 0 0 #CCCCCC;
+            border: 1px solid #999999;
+            margin: 15px 0 5px;
+            padding: 5px;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+    <script src="../lib/jquery.textselect.min.js" type="text/javascript"></script>
+    <script src="../lib/jquery.scrollTo.min.js" type="text/javascript"></script>
+    <script src="../jquery.search.min.js" type="text/javascript"></script>
+    <script>
+        jQuery(document).ready(function($) {
+
+            //create searcher
+            var searcher = $("#searchContent").search({
+                searchType: "highlightSelected",
+                searchSelector : "p",
+                scrollTo : true
+            });
+
+            //make sure we find the same text, otherwise clear search postions
+            function find(up) {
+                var currentText = searcher.getText();
+
+                var text = $("#searchText").val();
+
+                if (text != currentText) {
+                    searcher.setText(text);
+                }
+
+                searcher.nextСoncurrence(up);
+            }
+
+            //bind events
+            $("#prev").click(function(e) {
+                e.preventDefault();
+
+                find(false);
+            });
+
+            $("#next").click(function(e) {
+                e.preventDefault();
+
+                find(true);
+            });
+
+            $("#append").click(function(e) {
+                e.preventDefault();
+
+                var newNode = "<p>" + $("#newText").val() + "</p>";
+
+                $("#searchContent").append(newNode);
+
+                //autoscroll
+                $("#searchContent").scrollTo($("#searchContent p:last"));
+            });
+        })
+    </script>
+</head>
+<body>
+
+<div id="searchDemo">
+    <p class="back"><a href="https://github.com/nmartynenko/jquery-search-plugin"> &lt;&lt; Back to project page</a></p>
+
+    <p class="message">To search content, please fill.</p>
+
+    <noscript>
+        <p>Please enable JavaScript to use search plugin.</p>
+    </noscript>
+
+    <div class="searchForm">
+        <div>
+            <label>Search text</label>
+            <input type="text" id="searchText" value="sit"/>
+            <input type="button" id="prev" value="Previous">
+            <input type="button" id="next" value="Next">
+        </div>
+        <div>
+            <label>Text to append</label>
+            <input type="text" id="newText" value="Text to append"/>
+            <input type="button" id="append" value="Append text">
+        </div>
+    </div>
+
+    <div id="searchContent">
+        <p style="margin: 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+        <p>Nunc molestie fringilla risus, non pulvinar sapien molestie at.</p>
+        <p>Ut id eleifend turpis.</p>
+        <p>Praesent ac ipsum nec magna gravida convallis.</p>
+        <p>Suspendisse sed magna leo, eu tincidunt dui.</p>
+        <p>Suspendisse potenti.</p>
+        <p>Ut malesuada dictum odio quis egestas.</p>
+        <p>Aenean mollis ornare leo, at auctor neque consequat a.</p>
+        <p>Morbi in nibh quis nisl aliquet dignissim vel non nulla.</p>
+        <p>Sed leo metus, consectetur et commodo sit amet, molestie nec urna.</p>
+        <p>Quisque vestibulum dictum odio, vitae vulputate velit sodales sit amet.</p>
+        <p>Fusce sit amet diam nunc.</p>
+        <p>Nullam semper, nisi id pulvinar eleifend, eros tortor semper mauris, id facilisis mauris justo ut erat.</p>
+        <p>Ut dolor nunc, rutrum in imperdiet et, ultrices a turpis.</p>
+        <p>Nam convallis luctus est, quis ornare metus semper non.</p>
+    </div>
+
+</div>
+
+</body>
+</html>
