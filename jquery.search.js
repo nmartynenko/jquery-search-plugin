@@ -14,6 +14,11 @@
  * http://flesler.blogspot.com/2007/10/jqueryscrollto.html
  */
 ;(function($) {
+    //create case insensitive contains for jQuery
+    $.expr[":"].containsi = function(a, i, m) {
+        return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+    };
+
     $.extend($, {
         search: function(elem, options){
             //if selector or DOM object
@@ -44,7 +49,7 @@
             //if find first concurrency
             if (searcher.settings.createOnly === false){
                 //find first concurrency
-                searcher.nextСoncurrence();
+                searcher.nextConcurrence();
             }
 
             return searcher;
@@ -78,6 +83,9 @@
             //in case of false searcher after creating call nextConcurrence method
             //if you would like to do some other stuff, please use onCreate callback
             "createOnly" : true,
+
+            //case sensitive search
+            "caseSensitive" : false,
 
             //if it is set,then search result will be always always updated in context container
             "searchSelector" : "",
@@ -174,7 +182,7 @@
                 return this._filter(escapedText).length;
             },
 
-            nextСoncurrence : function(searchOrder){
+            nextConcurrence : function(searchOrder){
 
                 var concurrencesNumber = this.getConcurrencesNumber();
 
@@ -245,12 +253,23 @@
                     var $findResult = this.currentContainer;
                 }
 
-                return $findResult.contents(":contains('"+ escapedText +"')");
+                var containsSelector = this.settings.caseSensitive ? "contains" : "containsi";
+
+                return $findResult.contents(":" + containsSelector + "('"+ escapedText +"')");
             },
 
             _highlightSelected : function(textEl){
-                var startPosition = textEl.text().indexOf(this.settings.text);
-                var endPosition = startPosition + this.settings.text.length;
+                var textHolder = textEl.text();
+                var textToSelect = this.settings.text;
+
+                //case sensitive
+                if (!this.settings.caseSensitive){
+                    textHolder = textHolder.toUpperCase();
+                    textToSelect = textToSelect.toUpperCase();
+                }
+
+                var startPosition = textHolder.indexOf(textToSelect);
+                var endPosition = startPosition + textToSelect.length;
 
                 $.textSelect('setRange', {
                     start:startPosition,

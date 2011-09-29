@@ -34,6 +34,9 @@ Method "search" of jQuery object returns "searcher" object, which is used for se
     //if you would like to do some other stuff, please use onCreate callback
     "createOnly" : true,
     
+    //case sensitive search
+    "caseSensitive" : false,
+    
     //if it is set,then search result will be always always updated in context container
     "searchSelector" : "",
     
