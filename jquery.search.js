@@ -80,37 +80,38 @@
             //print debug information into console
             "debug" : false,
 
-            //in case of false searcher after creating call nextConcurrence method
-            //if you would like to do some other stuff, please use onCreate callback
+            //in case if it is set to false, searcher after it's creation calls nextConcurrence method
+            //if you would like to do some other stuff rather than it, please use onCreate callback
             "createOnly" : true,
 
-            //case sensitive search
+            //is case-sensitive search
             "caseSensitive" : false,
 
-            //if it is set,then search result will be always always updated in context container
+            //if it is set, then search result will be always updated in context container
             "searchSelector" : "",
 
-            //start postion
-            //NOTE:
+            //start position
+            //NOTE following:
             //1. position starts with 0.
-            //2. if you call nextConcurrence method, it will be increased before finding element
+            //2. if you call nextConcurrence method, it will be increased before searching element
             "position" : -1,
 
             //search of order
             // can be "up" (or true), "down" (or false)
             "searchOrder" : "down",
 
-            //type of finding behaviour
+            //type of after finding behaviour
             // can be:
-            // 1. highlight - highlight whole element
-            // 2. highlightSelected - highlight selected text of element
-            // 3. replace - replace
+            // 1. highlight — highlight the whole element
+            // 2. highlightSelected — highlight selected text of element
+            // 3. replace — replace
+            // 4. none — do nothing, usefull with afterSearch callback
             "searchType" : "highlight",
 
             //text to search. can be set via setText method
             "text" : null,
 
-            //text to replace (when "searchType" is "replace" only
+            //text to replace (when "searchType" is "replace" only)
             "replaceBy" : "",
 
             //if this parameter is true, page automatically scroll to selected element
@@ -118,13 +119,13 @@
             "scrollTo" : false,
 
             //callback called after creating of "searcher" object
-            onCreate : function() {},
+            onCreate : function(){},
 
             //calback called before next search
-            beforeSearch : function() {},
+            beforeSearch : function(){},
 
             //callback called after next search
-            afterSearch : function(textEl) {}
+            afterSearch : function(textEl){}
         },
 
         prototype : {

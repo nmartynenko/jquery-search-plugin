@@ -51,7 +51,7 @@
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
-    <script src="../lib/jquery.textselect.js" type="text/javascript"></script>
+    <script src="../lib/jquery.textselect.min.js" type="text/javascript"></script>
     <script src="../lib/jquery.scrollTo.min.js" type="text/javascript"></script>
     <script src="../jquery.search.min.js" type="text/javascript"></script>
     <script>
@@ -74,7 +74,7 @@
                     searcher.setText(text);
                 }
 
-                searcher.nextСoncurrence(up);
+                searcher.nextConcurrence(up);
             }
 
             //bind events
@@ -93,12 +93,16 @@
             $("#append").click(function(e) {
                 e.preventDefault();
 
-                var newNode = "<p>" + $("#newText").val() + "</p>";
+                var newNode = $("<p />",{
+                        text : $("#newText").val()
+                });
 
-                $("#searchContent").append(newNode);
+                var $searchContent = $("#searchContent");
 
-                //autoscroll
-                $("#searchContent").scrollTo($("#searchContent p:last"));
+                $searchContent
+                        .append(newNode)
+                        //autoscroll
+                        .scrollTo($searchContent.find("p:last"));
             });
         })
     </script>

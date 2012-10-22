@@ -1,0 +1,36 @@
+{
+	"name": "jquery-search-plugin",
+	"title": "jQuery Search plugin",
+	"description": "Plugin that makes easier search over text nodes of static or dynamical html content.",
+	"version": "0.1",
+	"homepage": "https://github.com/nmartynenko/jquery-search-plugin",
+	"author": {
+		"name": "Nick Martynenko",
+		"url": "https://github.com/nmartynenko/jquery-search-plugin"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nmartynenko/jquery-search-plugin.git"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://www.opensource.org/licenses/mit-license.php"
+		}
+	],
+	"dependencies": {
+		"jquery": ">= 1.4.2"
+	},
+	"devDependencies": {},
+	"optionalDependencies": {
+		"grunt": "~0.3.9",
+		"grunt-css": "0.2.0",
+		"grunt-compare-size": "0.1.4",
+		"grunt-html": "0.1.1",
+		"grunt-junit": "0.1.4",
+		"grunt-git-authors": "1.0.0",
+		"rimraf": "2.0.1",
+		"testswarm": "0.2.3"
+	},
+	"keywords": ["jquery", "search", "text", "plugin"]
+}
