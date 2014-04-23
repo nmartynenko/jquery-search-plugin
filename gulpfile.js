@@ -18,13 +18,17 @@ gulp.task('scripts', function() {
 });
 
 //perform tests
-gulp.task('jasmine', ['scripts'],function() {
-    gulp.src('test/testfile.js')
+gulp.task('mock-mvc-jasmine', ['scripts'],function() {
+    gulp.src('test/mock-mvc-test.js')
         .pipe(jasmine())
 });
 
+gulp.task('integration-mvc-jasmine', ['scripts'],function() {
+    //PhantomJS?
+});
+
 //default task for Travis CI
-gulp.task('travis', ['jasmine']);
+gulp.task('travis', ['mock-mvc-jasmine']);
 
 // The default task (called when you run `gulp`)
 gulp.task('default', ['travis']);

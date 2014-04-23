@@ -24,7 +24,8 @@
         "gulp": "*",
         "gulp-uglify": "*",
         "gulp-concat": "*",
-        "gulp-jasmine": "*"
+        "gulp-jasmine": "*",
+        "jsdom": "*"
     },
 	"optionalDependencies": {},
 	"keywords": ["jquery", "search", "text", "plugin"]
