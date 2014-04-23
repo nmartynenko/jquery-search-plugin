@@ -5,4 +5,5 @@
 .classpath
 .project
 .cache
-/dist
+/build
+/node_modules

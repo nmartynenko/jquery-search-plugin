@@ -1,1 +1,7 @@
 language: node_js
+node_js:
+- '0.10'
+before_install:
+- npm install gulp gulp-uglify gulp-concat gulp-jasmine
+script:
+- gulp travis

@@ -2,7 +2,6 @@
 	"name": "jquery-search-plugin",
 	"title": "jQuery Search plugin",
 	"description": "Plugin that makes easier search over text nodes of static or dynamical html content.",
-	"version": "0.1",
 	"homepage": "https://github.com/nmartynenko/jquery-search-plugin",
 	"author": {
 		"name": "Nick Martynenko",
@@ -21,7 +20,12 @@
 	"dependencies": {
 		"jquery": ">= 1.4.2"
 	},
-	"devDependencies": {},
+	"devDependencies": {
+        "gulp": "*",
+        "gulp-uglify": "*",
+        "gulp-concat": "*",
+        "gulp-jasmine": "*"
+    },
 	"optionalDependencies": {},
 	"keywords": ["jquery", "search", "text", "plugin"]
 }

@@ -1,4 +1,4 @@
-### jQuery search plugin ###
+### jQuery search plugin [![Build Status](https://travis-ci.org/nmartynenko/jquery-search-plugin.png?branch=master)](https://travis-ci.org/nmartynenko/jquery-search-plugin)
 
 This plugin makes easier search over text nodes of static or dynamical html content.
 
