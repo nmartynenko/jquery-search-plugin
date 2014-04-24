@@ -1,6 +1,4 @@
 var fs = require('fs'),
-    vm = require('vm'),
-    assert = require("assert"),
     jsdom = require("jsdom"),
     jquery = require("jquery");
 
@@ -9,56 +7,74 @@ var html = fs.readFileSync(__dirname + "/../demo/demo.html");
 //define JSDOM window
 var window = jsdom.jsdom(html).parentWindow;
 //expose global jQuery object
-jQuery = jquery(window);
-
-//Add libraries
-var includeInThisContext = function(path) {
-    var code = fs.readFileSync(path);
-    vm.runInThisContext(code, path);
-}.bind(this);
+/*global.*/jQuery = jquery(window).noConflict();
 
 //include scrollTo plugin
-includeInThisContext(__dirname + "/../lib/jquery.scrollTo.min.js");
+require("../lib/jquery.scrollTo.min.js");
 //include textselect plugin
-includeInThisContext(__dirname + "/../lib/jquery.textselect.min.js");
+require("../lib/jquery.textselect.min.js");
 //include our plugin
-includeInThisContext(__dirname + "/../jquery.search.min.js");
+require("../jquery.search.js");
 
 /**
  * Define all specs
  */
 describe("Application's scope", function(){
 
-    it("should have jQuery object in the scope", function(){
-        assert.ok(jQuery);
+    var $ = jQuery;
+
+    it("should have jQuery object in the global scope", function(){
+        expect($).toBeDefined();
     });
 
-    it("should have jQuery.fn.scrollTo method in the scope", function(){
-        assert.ok(jQuery.isFunction(jQuery.fn.scrollTo));
+    it("should have jQuery object in the window scope", function(){
+        expect(window.jQuery).toBeDefined();
     });
 
-    it("should have jQuery.scrollTo method in the scope", function(){
-        assert.ok(jQuery.isFunction(jQuery.textSelect));
+    it("should have jQuery.fn.scrollTo method in the scope and it should be a function", function(){
+        expect($.isFunction($.fn.scrollTo)).toBeTruthy();
     });
 
-    it("should have jQuery.search and jQuery.fn.search methods in the scope", function(){
-        assert.ok(jQuery.isFunction(jQuery.search));
-        assert.ok(jQuery.isFunction(jQuery.fn.search));
+    it("should have jQuery.scrollTo method in the scope and it should be a function", function(){
+        expect($.isFunction($.textSelect)).toBeTruthy();
+    });
+
+    it("should have jQuery.search and jQuery.fn.search methods in the scope and they should be functions", function(){
+        expect($.isFunction($.search)).toBeTruthy();
+        expect($.isFunction($.fn.search)).toBeTruthy();
     });
 });
 
 describe("Application's behaviour", function(){
+    var emptySelector = "#empty_selector",
+        rightSelector = "#searchContent",
+        //shortcut for jQuery
+        $ = jQuery;
 
-    it("should create nothing on wrong selector", function(){
-        assert.ok(!jQuery("empty_selector").search());
+    it("wrong selector should not find any elements", function(){
+        expect($(emptySelector).size()).toBe(0);
+    });
+
+    it("right selector should find only one element", function(){
+        expect($(rightSelector).size()).toBe(1);
     });
 
     it("should create nothing on wrong selector", function(){
-        assert.ok(!jQuery("#empty_selector").search());
+        expect($(emptySelector).search()).toBeUndefined();
     });
 
     it("should create new search object on correct selector", function(){
-        assert.ok(jQuery("#searchContent").search());
+        expect($(rightSelector).search()).toBeDefined();
+    });
+
+    it("should contain searcher object as data attribute only after it creates a concrete search object", function(){
+        var searchContent = $("#searchContent");
+        //before
+        expect($.data(searchContent, "searcher")).toBeUndefined();
+        //call search method
+        searchContent.search();
+        //after
+        expect($.data(searchContent, "searcher")).toBeDefined();
     });
 
 });
