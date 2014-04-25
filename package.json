@@ -1,32 +1,38 @@
 {
-	"name": "jquery-search-plugin",
-	"title": "jQuery Search plugin",
-	"description": "Plugin that makes easier search over text nodes of static or dynamical html content.",
-	"homepage": "https://github.com/nmartynenko/jquery-search-plugin",
-	"author": {
-		"name": "Nick Martynenko",
-		"url": "https://github.com/nmartynenko/jquery-search-plugin"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/nmartynenko/jquery-search-plugin.git"
-	},
-	"licenses": [
-		{
-			"type": "MIT",
-			"url": "http://www.opensource.org/licenses/mit-license.php"
-		}
-	],
-	"dependencies": {
-		"jquery": ">= 1.4.2"
-	},
-	"devDependencies": {
+    "name": "jquery-search-plugin",
+    "title": "jQuery Search plugin",
+    "description": "Plugin that makes easier search over text nodes of static or dynamical html content.",
+    "homepage": "https://github.com/nmartynenko/jquery-search-plugin",
+    "author": {
+        "name": "Nick Martynenko",
+        "url": "https://github.com/nmartynenko/jquery-search-plugin"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nmartynenko/jquery-search-plugin.git"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/mit-license.php"
+        }
+    ],
+    "dependencies": {
+        "jquery": ">= 1.4.2"
+    },
+    "devDependencies": {
         "gulp": "*",
         "gulp-uglify": "*",
         "gulp-concat": "*",
         "gulp-jasmine": "*",
-        "jsdom": "*"
+        "jsdom": "*",
+        "gulp-qunit": "~0.3.3"
     },
-	"optionalDependencies": {},
-	"keywords": ["jquery", "search", "text", "plugin"]
+    "optionalDependencies": {},
+    "keywords": [
+        "jquery",
+        "search",
+        "text",
+        "plugin"
+    ]
 }

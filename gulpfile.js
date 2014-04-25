@@ -1,7 +1,8 @@
 var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
-    jasmine = require('gulp-jasmine');
+    jasmine = require('gulp-jasmine'),
+    qunit = require('gulp-qunit');
 
 gulp.task('scripts', function() {
     // Minify and copy all JavaScript (except vendor scripts)
@@ -18,17 +19,18 @@ gulp.task('scripts', function() {
 });
 
 //perform tests
-gulp.task('mock-mvc-jasmine', ['scripts'],function() {
-    gulp.src('test/mock-mvc-test.js')
+gulp.task('application-spec-jasmine', ['scripts'],function() {
+    gulp.src('test/jasmine/application-spec.js')
         .pipe(jasmine())
 });
 
-gulp.task('integration-mvc-jasmine', ['scripts'],function() {
-    //PhantomJS?
+gulp.task('integration-spec-qunit', ['scripts'],function() {
+    gulp.src("test/qunit/test-runner.html")
+        .pipe(qunit());
 });
 
 //default task for Travis CI
-gulp.task('travis', ['mock-mvc-jasmine']);
+gulp.task('travis', ['application-spec-jasmine', 'integration-spec-qunit']);
 
 // The default task (called when you run `gulp`)
 gulp.task('default', ['travis']);

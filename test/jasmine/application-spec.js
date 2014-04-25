@@ -3,18 +3,18 @@ var fs = require('fs'),
     jquery = require("jquery");
 
 //load demo HTML
-var html = fs.readFileSync(__dirname + "/../demo/demo.html");
+var html = fs.readFileSync(__dirname + "/../../demo/demo.html");
 //define JSDOM window
 var window = jsdom.jsdom(html).parentWindow;
 //expose global jQuery object
 /*global.*/jQuery = jquery(window).noConflict();
 
 //include scrollTo plugin
-require("../lib/jquery.scrollTo.min.js");
+require("../../lib/jquery.scrollTo.min.js");
 //include textselect plugin
-require("../lib/jquery.textselect.min.js");
+require("../../lib/jquery.textselect.min.js");
 //include our plugin
-require("../jquery.search.js");
+require("../../jquery.search.js");
 
 /**
  * Define all specs
@@ -77,4 +77,18 @@ describe("Application's behaviour", function(){
         expect($.data(searchContent, "searcher")).toBeDefined();
     });
 
+});
+
+describe("Searcher's methods", function(){
+
+    var rightSelector = "#searchContent",
+        //shortcut for jQuery
+        $ = jQuery,
+        defaultSettings = $.searcher.defaults;
+
+    it("should have default settings, when nothing is provided as parameters", function(){
+        var searcher = $(rightSelector).search();
+
+        expect(searcher.settings).toEqual(defaultSettings);
+    });
 });
