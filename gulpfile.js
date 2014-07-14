@@ -8,23 +8,25 @@ gulp.task('scripts', function() {
     // Minify and copy all JavaScript (except vendor scripts)
     gulp.src('./jquery.search.js')
         .pipe(uglify())
-        .pipe(gulp.dest('build'))
-        .pipe(gulp.src([
+        .pipe(gulp.dest('build'));
+
+    //concat JS files with Copyright file
+    gulp.src([
             'Copyright',
-            "build/*.js"
-        ]))
+            "./build/*.js"
+        ])
         .pipe(concat("jquery.search.min.js", {newLine:""}))
         .pipe(gulp.dest('.'))
 
 });
 
 //perform tests
-gulp.task('application-spec-jasmine', ['scripts'],function() {
+gulp.task('application-spec-jasmine', ['scripts'], function() {
     gulp.src('test/jasmine/application-spec.js')
         .pipe(jasmine())
 });
 
-gulp.task('integration-spec-qunit', ['scripts'],function() {
+gulp.task('integration-spec-qunit', ['scripts'], function() {
     gulp.src("test/qunit/test-runner.html")
         .pipe(qunit());
 });
