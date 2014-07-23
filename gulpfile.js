@@ -4,16 +4,18 @@ var gulp = require('gulp'),
     jasmine = require('gulp-jasmine'),
     qunit = require('gulp-qunit');
 
-gulp.task('scripts', function() {
+gulp.task('minimize', function() {
     // Minify and copy all JavaScript (except vendor scripts)
     gulp.src('./jquery.search.js')
         .pipe(uglify())
-        .pipe(gulp.dest('build'));
+        .pipe(gulp.dest('./build'));
+});
 
+gulp.task('scripts', ['minimize'], function() {
     //concat JS files with Copyright file
     gulp.src([
-            'Copyright',
-            "./build/*.js"
+            './Copyright',
+            './build/jquery.search.js'
         ])
         .pipe(concat("jquery.search.min.js", {newLine:""}))
         .pipe(gulp.dest('.'))
